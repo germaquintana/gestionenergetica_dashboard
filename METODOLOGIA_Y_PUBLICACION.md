@@ -45,7 +45,7 @@ Se emplean los nombres y relaciones de la capacitación ministerial del **10 de 
 
 ## 4. Contrato de datos para la web
 - `data/indicadores_publicos.json` contiene un **snapshot de datos permitidos**, agregado e independiente del expediente. Se replica dentro del HTML solo para funcionar sin red (file://); ambas representaciones **deben coincidir**.
-- La interfaz pública **no usa token, API privada, credenciales ni consulta Gmail, Drive o Trello**. No puede actualizar tareas institucionales ni alterar Gestona Energía.
+- La interfaz pública **no usa token, API privada, credenciales ni consulta Gmail, Drive o Trello**. No puede actualizar tareas institucionales ni alterar Gestiona Energía.
 - La ausencia de valor se representa mediante `null` o texto **Sin datos**, nunca como cero.
 - Publicar solo datos con fuente, corte y estado; si se desconoce vigencia, usar expresiones «referencia histórica», «candidato» o «por verificar».
 - Mantener el módulo de agua **dentro** de navegación Gestión de Unidad, pero claramente diferenciado del reporte energético legal. No convertir m³ a kWh.
