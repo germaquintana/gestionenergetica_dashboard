@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Tablero exploratorio de Gestión Energética Municipal de Recoleta. Inventario de unidades, energéticos, consumos y gestión hídrica con control de fuentes.">
+<title>Gestión Energética Municipal · Recoleta | Tablero exploratorio</title>
+<style>
+:root{font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Arial,sans-serif;color:#203448;background:#f3f7f8;color-scheme:light;--teal:#137c79;--navy:#19334f;--light:#e9f3f3;--border:#d7e3e9;--sub:#5b6f7d}
+*{box-sizing:border-box}body{margin:0;line-height:1.45}button,input,select{font:inherit}button{cursor:pointer}a{color:#146d88}a:hover{text-decoration-thickness:2px}strong{font-weight:730}p{margin:.3rem 0 1rem}.small,.muted{color:var(--sub);font-size:.83rem}.wrap{max-width:1310px;margin:0 auto;padding:0 24px}header{background:linear-gradient(120deg,#18344e,#0f626a);color:white;padding:30px 0 25px}header .eyebrow{letter-spacing:.12em;text-transform:uppercase;font-size:.75rem;color:#b9e1e3;font-weight:760}header h1{font-size:clamp(1.55rem,3vw,2.35rem);margin:7px 0}header p{max-width:860px;color:#e1f0f3}header a{color:#d4f2fc}
+.statusbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding-top:8px;font-size:.83rem}.pill{background:#ecf6f5;color:#14565b;border-radius:20px;padding:4px 10px;font-weight:720}.pill.neutral{background:#e8eef2;color:#3b536b}.shell{display:grid;grid-template-columns:226px minmax(0,1fr);gap:22px;padding-top:26px;padding-bottom:44px}
+nav{align-self:start;position:sticky;top:16px;padding:10px;background:#fff;border:1px solid var(--border);border-radius:13px;display:grid;gap:5px}nav button{border:0;background:transparent;text-align:left;padding:11px 13px;color:#405a6b;border-radius:9px;font-size:.95rem}nav button.selected,nav button[aria-current="page"]{background:#dff2f0;color:#115c5a;font-weight:750}nav .navnote{font-size:.75rem;padding:14px 10px 6px;color:var(--sub);border-top:1px solid var(--border);margin-top:4px}
+main{min-width:0}section{background:white;border:1px solid var(--border);border-radius:13px;padding:22px 24px;margin-bottom:18px}[hidden]{display:none!important}
+h2{font-size:1.35rem;color:var(--navy);margin:0 0 10px}h3{font-size:1.04rem;margin:20px 0 9px;color:var(--navy)}section>p{max-width:890px}.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin:18px 0}
+.metric{border:1px solid var(--border);background:#fbfdfd;border-radius:11px;padding:16px;min-height:148px}.metric .value{font-size:2rem;line-height:1.1;font-weight:780;color:var(--teal);padding-bottom:9px}.metric-name{font-size:.88rem;font-weight:710;margin-bottom:6px}.metric small{display:block;font-size:.76rem}
+.notice{border-left:4px solid #a7792c;background:#fff8eb;border-radius:6px;padding:12px 15px;margin:15px 0;font-size:.9rem}.info{border-left:4px solid var(--teal);background:#edf7f6;padding:12px 15px;margin:15px 0;border-radius:6px;font-size:.9rem}
+.tablewrap{overflow-x:auto;border:1px solid var(--border);border-radius:9px}table{border-collapse:collapse;width:100%;font-size:.86rem}th{color:#235871;background:#eaf3f5;text-align:left}th,td{padding:11px 12px;border-bottom:1px solid var(--border)}tr:last-child td{border-bottom:0}tbody tr:hover{background:#f7fafb}.controls{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}input,select{padding:10px 12px;min-height:42px;border:1px solid #b9cbd4;border-radius:9px;background:#fff;max-width:100%}input{flex:2;min-width:220px}select{min-width:170px}.btn{border:1px solid #aac7d0;background:#fff;border-radius:8px;color:#0e5d72;font-weight:700;padding:10px 12px}.btn:hover{background:#e9f4f6}
+.water-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}.water-metric{display:grid;gap:3px;padding:13px;border-radius:9px;border:1px solid var(--border);background:#fcfefe}.water-metric strong{font-size:1.5rem;color:#0d6875}.water-metric span{font-size:.85rem;font-weight:720}.water-metric small{font-size:.76rem;color:var(--sub)}
+.bar-row{margin:13px 0}.bar-meta{display:flex;justify-content:space-between;gap:8px;font-size:.86rem;margin-bottom:5px}.bar-meta strong{white-space:nowrap;font-variant-numeric:tabular-nums}.track{height:10px;background:#e7f0f3;border-radius:10px;overflow:hidden}.fill{height:100%;background:#168480;border-radius:10px}.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px}.subpanel{border:1px solid var(--border);border-radius:10px;padding:16px}.subpanel ul{margin-bottom:0;padding-left:21px}.path{display:flex;gap:8px;flex-wrap:wrap;font-weight:700;margin:16px 0}.path span{background:#eaf4f6;padding:9px 10px;border-radius:7px;color:#19546a;font-size:.84rem}.path em{color:#7c929d;align-self:center;font-style:normal}.datastate{display:inline-block;border-radius:6px;background:#f1f4f5;padding:5px 8px;color:#586e7c;font-size:.8rem}
+footer{font-size:.77rem;color:#647884;border-top:1px solid var(--border);padding:19px 0 35px}ul{padding-left:22px}li{margin:5px 0}
+@media(max-width:820px){.shell{grid-template-columns:1fr}nav{position:static;display:flex;flex-wrap:wrap;gap:3px}nav .navnote{display:none}nav button{font-size:.84rem;padding:9px 10px}.wrap{padding-left:13px;padding-right:13px}section{padding:17px}.two-col{grid-template-columns:1fr}}
+@media(max-width:540px){.water-grid{grid-template-columns:1fr}.bar-meta{display:block}.bar-meta strong{display:block;margin-top:2px}th,td{padding:9px;font-size:.78rem}.metric{min-height:0}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+<div class="eyebrow">Recoleta · Gestión Ambiental · Tablero de análisis</div>
+<h1>Gestión Energética Municipal</h1>
+<p>Indicadores de diagnóstico, inventario, consumos y seguimiento construidos con el <strong>esquema de Gestiona Energía del Ministerio de Energía</strong>. No es una copia de la plataforma ministerial ni presenta reportes oficiales aprobados.</p>
+<div class="statusbar"><span class="pill">Versión exploratoria 0.1</span><span class="pill neutral">Corte técnico: 5 noviembre 2026</span><span>Datos energéticos de 2025 pendientes de validación pública</span></div>
+</div></header>
+<div class="wrap shell">
+<nav aria-label="Módulos de seguimiento">
+<button type="button" class="selected" data-tab="inicio" aria-current="page">Inicio · Resumen</button>
+<button type="button" data-tab="mi-unidad">Mi Unidad</button>
+<button type="button" data-tab="gestion-unidad">Gestión de Unidad</button>
+<button type="button" data-tab="reportes">Reportes y cobertura</button>
+<button type="button" data-tab="configuracion">Configuración y fuentes</button>
+<div class="navnote">La estructura sigue los conceptos operativos de la capacitación ministerial 2026. No permite editar la plataforma.</div>
+</nav>
+<main id="main">
+<section data-view="inicio" id="panel-inicio">
+<h2>Resumen ejecutivo</h2>
+<p>El propósito es distinguir qué información está registrada, qué se ha identificado en otras fuentes y qué falta verificar antes de un reporte completo.</p>
+<div id="kpis" class="kpis"></div>
+<div class="notice"><strong>Precaución:</strong> las 8 unidades y la única unidad reportable provienen de una fotografía ministerial y una vista de plataforma. No representan todo el patrimonio municipal ni prueban el estado actual de los reportes.</div>
+<div class="two-col">
+<div class="subpanel"><h3>Ruta de información</h3><div class="path"><span>Edificio</span><em>›</em><span>Unidad</span><em>›</em><span>Energético</span><em>›</em><span>Suministro</span><em>›</em><span>Consumo</span></div><p class="muted">El suministro se registra en la gestión interna por cliente y medidor. Una cuenta o medidor no equivale a una unidad física.</p></div>
+<div class="subpanel"><h3>Cortes distintos</h3><ul><li><strong>Reporte energético 2026:</strong> 01-11-2024 al 31-10-2025.</li><li><strong>Agua 2025:</strong> año calendario 2025.</li><li><strong>Agua 2026:</strong> enero–julio, parcial.</li></ul><p class="muted">Los períodos no se suman ni comparan como si fueran equivalentes.</p></div>
+</div>
+</section>
+
+<section data-view="mi-unidad" id="panel-mi-unidad" hidden>
+<h2>Mi Unidad · Catastro preliminar</h2>
+<p>El módulo ministerial organiza la <strong>Información General</strong>, los <strong>Energéticos</strong> y los <strong>Sistemas</strong> de cada unidad. Esta tabla muestra las ocho referencias visibles en la plataforma, no el inventario municipal completo.</p>
+<div class="path"><span>Edificio</span><em>›</em><span>Una o varias unidades</span><em>›</em><span>Características físicas y suministros</span></div>
+<div class="controls"><input id="buscarUnidad" type="search" aria-label="Buscar unidad por dirección o nombre" placeholder="Buscar recinto, dirección o unidad"><select id="sector" aria-label="Filtrar por área"><option value="todos">Todas las áreas</option><option>Administración municipal</option><option>Educación</option><option>Cementerio</option><option>Por confirmar</option></select><button id="download" type="button" class="btn">Exportar tabla CSV</button></div>
+<p class="muted" id="unitCount" aria-live="polite">8 referencias visibles</p>
+<div class="tablewrap"><table><thead><tr><th>Referencia</th><th>Dirección vista</th><th>Identificación provisional</th><th>Sector</th><th>Estado documental</th></tr></thead><tbody id="unidades-rows"></tbody></table></div>
+<div class="info"><strong>Catastro DAEM:</strong> existen 24 referencias educativas históricas (19 con RBD identificado y 5 con código JUNJI VTF). No se añaden automáticamente a las ocho unidades visibles, porque pueden corresponder a sedes, edificios compartidos, categorías históricas o unidades que requieren confirmación.</div>
+<h3>Atributos por completar antes de consolidar</h3>
+<div class="two-col"><div class="subpanel"><strong>Información General</strong><p class="muted">Dirección normalizada, área responsable, uso, superficie, pisos, año de construcción, dotación, propiedad y respaldo del inmueble.</p></div><div class="subpanel"><strong>Energéticos y Sistemas</strong><p class="muted">Fuentes utilizadas, proveedor, número de cliente y medidor en expediente reservado; climatización, iluminación y sistemas FV cuando haya evidencia técnica.</p></div></div>
+</section>
+
+<section data-view="gestion-unidad" id="panel-gestion-unidad" hidden>
+<h2>Gestión de Unidad · Consumos</h2>
+<p>La plataforma permite declarar compras/consumos por fuente energética, clientes y medidores. Los valores dependen de facturas y períodos de lectura verificados.</p>
+<h3>1. Energía · Período de referencia del reporte 2026</h3>
+<div class="notice"><strong>Sin serie energética publicable validada.</strong> No se mostrarán kWh, litros, pesos o índices kWh/m² como cero mientras no se hayan conciliado las facturas, la ocupación del edificio y la vigencia de los medidores.</div>
+<div class="tablewrap"><table><thead><tr><th>Fuente energética candidata</th><th>Unidad típica de registro</th><th>Estado en este panel</th></tr></thead><tbody>
+<tr><td>Electricidad</td><td>kWh</td><td><span class="datastate">Sin serie pública validada</span></td></tr>
+<tr><td>Gas natural o GLP</td><td>m³ / kg o litros según factura</td><td><span class="datastate">Fuente aplicable por unidad: por verificar</span></td></tr>
+<tr><td>Combustibles y otros</td><td>litros / kWh equivalentes documentados</td><td><span class="datastate">Consumos por edificio/flota: por separar</span></td></tr>
+</tbody></table></div>
+<h3>2. Gestión del agua · Módulo complementario</h3>
+<p>El módulo hídrico utiliza m³ y una clasificación de cuentas diferente de la estructura energética. Estos valores pertenecen al <strong>año calendario 2025</strong>, salvo el corte parcial expresamente indicado.</p>
+<div id="water-kpis" class="water-grid"></div>
+<h3>Distribución 2025 según uso registrado en SISS</h3>
+<div id="agua-fil" aria-label="Distribución agregada de consumo de agua por categoría SISS"></div>
+<div class="notice"><strong>Clasificación provisional:</strong> la etiqueta «Educación» incluye recintos de otro destino y puede omitir escuelas etiquetadas como «Administración». Los datos por establecimiento requieren validar contratos, medidores, titularidad y uso. <strong>No equivale a agua reportada en Gestiona Energía.</strong></div>
+</section>
+
+<section data-view="reportes" id="panel-reportes" hidden>
+<h2>Reportes · Cobertura y calidad</h2>
+<p>Este módulo presenta la <strong>preparación documental</strong> para el reporte ministerial, no el estado de envío ni aprobación en el sistema oficial.</p>
+<div class="tablewrap"><table><thead><tr><th>Control de reporte</th><th>Corte aplicable</th><th>Estado verificable</th></tr></thead><tbody>
+<tr><td>Catastro de edificios y unidades</td><td>Información general</td><td>8 visibles; universo por completar</td></tr>
+<tr><td>Registro de energéticos y suministros</td><td>Por unidad y vigencia</td><td>Contratos y medidores por conciliar</td></tr>
+<tr><td>Consumo de electricidad y otras fuentes</td><td>01-11-2024 al 31-10-2025</td><td>Integridad mensual no acreditada en este panel</td></tr>
+<tr><td>Relación con educación, salud y administración</td><td>Universo municipal</td><td>Catastros sectoriales en conciliación</td></tr>
+<tr><td>Declaración ministerial</td><td>Plataforma oficial</td><td>No verificada en este tablero público</td></tr>
+</tbody></table></div>
+<h3>Criterios generales del artículo 7</h3>
+<p>La normativa incluye condiciones de superficie, densidad de ocupación y determinados destinos como establecimientos de salud y laboratorios; además contempla excepciones por medidores compartidos o falta de acceso a facturación. Debe evaluarse cada unidad con evidencia real, <strong>no deducir su obligación a partir de este inventario parcial</strong>.</p>
+<div class="info"><strong>Importante:</strong> no usar el valor «una unidad reportable» del corte histórico para concluir que educación o salud están exentas, que hubo reportes completos o que existe incumplimiento vigente.</div>
+</section>
+
+<section data-view="configuracion" id="panel-configuracion" hidden>
+<h2>Configuración · Fuentes y criterios</h2>
+<div class="two-col">
+<div class="subpanel"><h3>Gestión de unidades</h3><p>La administración real de gestores, unidades, edificios y permisos se realiza exclusivamente en la plataforma ministerial por personal autorizado. Este dashboard es de <strong>solo lectura</strong>.</p><p class="muted">No contiene usuarios, correos, identificadores contractuales ni permisos de acceso.</p></div>
+<div class="subpanel"><h3>Calidad de datos</h3><ul><li>No equivale «sin dato» a cero.</li><li>No duplicar medidores compartidos.</li><li>No sumar cuentas, edificios y unidades.</li><li>Rotular corte temporal, fuente y estado.</li><li>Validar denominadores antes de calcular intensidades.</li></ul></div>
+</div>
+<h3>Fuentes públicas de referencia</h3><ul id="sources"></ul>
+<p class="muted">Las cifras locales proceden de documentos técnicos preliminares de Gestión Ambiental. No se publican los expedientes ni los registros por cuenta y medidor.</p>
+<div class="notice"><strong>Publicación exploratoria, no oficial:</strong> no representa la postura institucional de otras unidades ni reemplaza declaraciones ante el Ministerio de Energía. Para reportar o corregir la plataforma se requiere actuación y autorización de las personas competentes.</div>
+</section>
+</main>
+</div>
+<div class="wrap"><footer>Tablero estático · Datos agregados y referencias públicas · Actualización documentada 05-11-2026 · No se sincroniza en vivo con Gestiona Energía, facturación ni expedientes institucionales.</footer></div>
+<script id="snapshot" type="application/json">{"version":"0.1.0","corte_panel":"2026-11-05","publicacion":"Exploratorio no oficial","base_normativa":{"referencia":"Ley 21.305 art. 5 y DS 28/2021 arts. 7 y 8","ciclo_reporte":"2026","inicio":"2024-11-01","fin":"2025-10-31","campos_minimos":["Edificio","Unidad","Energético","Cliente/medidor (interno)","Consumo por período","Estado de revisión"]},"inventario":{"corte_evidencia":"2026-10-14","unidades_visibles":8,"unidades_con_reporte_segun_foto":1,"universo_municipal_validado":false,"referencias_historicas_educacion":24,"escolares_rbd_historicos":19,"vtf_historicos":5,"unidades":[{"ref":"U-01","ubicacion":"Av. Recoleta 2774","sector":"Administración municipal","detalle":"Edificio Consistorial","estado":"Referencia visible; datos técnicos por verificar"},{"ref":"U-02","ubicacion":"Av. Recoleta 480","sector":"Educación","detalle":"Escuela República del Paraguay","estado":"Referencia visible; identidad y consumos por validar"},{"ref":"U-03","ubicacion":"Av. Recoleta 590","sector":"Educación","detalle":"Liceo de Adultos Jorge Alessandri","estado":"Referencia visible; dirección contrastada con 594"},{"ref":"U-04","ubicacion":"Buenos Aires 575","sector":"Educación","detalle":"Liceo Valentín Letelier","estado":"Referencia visible; consumos por verificar"},{"ref":"U-05","ubicacion":"Profesor Zañartu 803","sector":"Cementerio","detalle":"Unidad o sector del Cementerio General","estado":"Referencia visible; reportabilidad y cobertura a cotejar"},{"ref":"U-06","ubicacion":"Profesor Zañartu 951","sector":"Cementerio","detalle":"Unidad o sector del Cementerio General","estado":"Referencia visible; medidor y uso por verificar"},{"ref":"U-07","ubicacion":"Segunda de Tilo 83","sector":"Cementerio","detalle":"Unidad o sector del Cementerio General","estado":"Referencia visible; medidor y uso por verificar"},{"ref":"U-08","ubicacion":"Unión S/N","sector":"Por confirmar","detalle":"Identidad física en levantamiento","estado":"Referencia visible; ubicación funcional pendiente"}]},"energia":{"kwh_total_2025_publicable":null,"combustibles_total_publicable":null,"costo_2025_publicable":null,"unidades_con_serie_mensual_validada":null,"nota":"No hay aquí una serie energética 2025 validada para difusión. Sin dato no significa cero.","fuentes_posibles":["Electricidad","Gas natural","Gas licuado de petróleo","Diésel","Gasolina","Otros energéticos"]},"agua":{"naturaleza":"Módulo complementario de gestión hídrica, no reemplaza el reporte energético de la Ley 21.305","fuente":"SISS Base julio de 2026, cortes calendario; resultados técnicos agregados sin certificación contractual","cuentas_nombre":269,"cuentas_rut_municipal":264,"consumo_m3_2025_nombre":492410.56,"consumo_m3_2025_rut":454464.56,"consumo_m3_2026_ene_jul_nombre":391019.62,"categorias_originales_2025":[{"grupo":"Áreas verdes","m3":229707},{"grupo":"Educación (etiqueta SISS)","m3":143392},{"grupo":"Salud (etiqueta SISS)","m3":19434},{"grupo":"Administración (etiqueta SISS)","m3":99877.56}],"alerta":"Las categorías son etiquetas de la fuente y pueden contener errores. No atribuir las cuentas a unidades sin conciliar contratos e inmuebles."},"trazabilidad":{"fuentes_publicas":[{"titulo":"Ley 21.305 y reporte sector público","url":"https://sectorpublico.gestionaenergia.cl/?page_id=6818"},{"titulo":"Biblioteca y capacitación Gestiona Energía 2026","url":"https://sectorpublico.gestionaenergia.cl/?page_id=15"}],"control":"GA-T-2026-0008; inventarios y consolidaciones de trabajo sin aprobación institucional","reserva":"Los números de cuenta, RUT, series de medidor, importes por instalación, facturas y documentos internos quedan fuera de este repositorio.","advertencia":"La información es exploratoria; no certifica la presentación, aprobación o cumplimiento de obligaciones legales."}}</script>
+<script>(()=>{
+"use strict";
+const DATA=JSON.parse(document.getElementById("snapshot").textContent);
+const fmt=(n,d=0)=>typeof n==="number"?new Intl.NumberFormat("es-CL",{minimumFractionDigits:d,maximumFractionDigits:d}).format(n):"Sin datos verificados";
+const el=(tag,text,cls)=>{const x=document.createElement(tag);if(text!==undefined)x.textContent=String(text);if(cls)x.className=cls;return x;};
+const activeViews=["inicio","mi-unidad","gestion-unidad","reportes","configuracion"];
+function changeTab(view){
+ if(!activeViews.includes(view))return;
+ document.querySelectorAll("[data-tab]").forEach(b=>{const is=b.dataset.tab===view;b.setAttribute("aria-current",is?"page":"false");b.classList.toggle("selected",is);});
+ document.querySelectorAll("[data-view]").forEach(p=>{p.hidden=p.dataset.view!==view;});
+ window.location.hash=view;
+}
+document.querySelectorAll("[data-tab]").forEach(b=>b.addEventListener("click",()=>changeTab(b.dataset.tab)));
+changeTab(activeViews.includes(decodeURIComponent(location.hash.substring(1)))?decodeURIComponent(location.hash.substring(1)):"inicio");
+window.addEventListener("hashchange",()=>{const v=decodeURIComponent(location.hash.substring(1));if(activeViews.includes(v))changeTab(v);});
+const metrics=[
+ {n:fmt(DATA.inventario.unidades_visibles),u:"Unidades visibles en plataforma",d:"Registro observado al 14-10-2026; no es el universo municipal"},
+ {n:fmt(DATA.inventario.unidades_con_reporte_segun_foto),u:"Unidad reportable en corte",d:"Fotografía ministerial, no cumplimiento confirmado"},
+ {n:fmt(DATA.inventario.referencias_historicas_educacion),u:"Referencias educativas históricas",d:"19 fichas RBD + 5 referencias VTF; no son unidades verificadas"},
+ {n:"Sin datos",u:"Consumo de energía 2025",d:"kWh y costos por unidad requieren facturas y validación"}
+];
+const k=document.getElementById("kpis");for(const m of metrics){let v=el("div",undefined,"metric");v.append(el("div",m.n,"value"),el("div",m.u,"metric-name"),el("small",m.d,"muted"));k.append(v);}
+const waterP=document.getElementById("water-kpis");
+for(const m of [
+ {num:fmt(DATA.agua.consumo_m3_2025_nombre),title:"m³ en 2025",desc:"269 cuentas asociadas al nombre municipal, año calendario"},
+ {num:fmt(DATA.agua.consumo_m3_2025_rut),title:"m³ en 2025, perímetro RUT",desc:"264 cuentas, distinto del perímetro por nombre"},
+ {num:fmt(DATA.agua.consumo_m3_2026_ene_jul_nombre),title:"m³ enero–julio 2026",desc:"Siete meses; nunca compararlo con 2025 completo"}
+]){let e=el("div",undefined,"water-metric");e.append(el("strong",m.num),el("span",m.title),el("small",m.desc));waterP.append(e);}
+const sum=DATA.agua.categorias_originales_2025.reduce((a,x)=>a+x.m3,0);
+const table=document.getElementById("agua-fil");for(const x of DATA.agua.categorias_originales_2025){
+ let row=el("div",undefined,"bar-row"),meta=el("div",undefined,"bar-meta"),pct=sum?x.m3*100/sum:0;
+ meta.append(el("span",x.grupo),el("strong",fmt(x.m3)+" m³ · "+fmt(pct,1)+" %"));
+ let track=el("div",undefined,"track"),bar=el("div",undefined,"fill");bar.style.width=String(Math.min(100,Math.max(0,pct)))+"%";track.append(bar);row.append(meta,track);table.append(row);
+}
+const unitRows=document.getElementById("unidades-rows"),count=document.getElementById("unitCount");
+function drawUnits(){
+ const text=(document.getElementById("buscarUnidad").value||"").toLocaleLowerCase("es").trim();
+ const sector=document.getElementById("sector").value;
+ const units=DATA.inventario.unidades.filter(u=>(sector==="todos"||u.sector===sector)&&[u.ubicacion,u.detalle,u.sector].join(" ").toLocaleLowerCase("es").includes(text));
+ unitRows.replaceChildren();
+ for(const u of units){let tr=el("tr");for(const v of [u.ref,u.ubicacion,u.detalle,u.sector,u.estado])tr.append(el("td",v));unitRows.append(tr);}
+ count.textContent=units.length+" de "+DATA.inventario.unidades.length+" referencias visibles";
+}
+document.getElementById("buscarUnidad").addEventListener("input",drawUnits);
+document.getElementById("sector").addEventListener("change",drawUnits);
+drawUnits();
+const sources=document.getElementById("sources");
+for(const s of DATA.trazabilidad.fuentes_publicas){let li=el("li");let a=el("a",s.titulo);a.href=s.url;a.target="_blank";a.rel="noopener noreferrer";li.append(a);sources.append(li);}
+function exportUnits(){
+ const rows=[["Referencia","Ubicación","Área referencial","Estado de verificación"],...DATA.inventario.unidades.map(u=>[u.ref,u.ubicacion,u.sector,u.estado])];
+ const csv="\ufeff"+rows.map(row=>row.map(v=>'"'+String(v).replaceAll('"','""')+'"').join(";")).join("\r\n");
+ const blob=new Blob([csv],{type:"text/csv;charset=utf-8"});const u=URL.createObjectURL(blob);
+ const a=document.createElement("a");a.href=u;a.download="gestionenergetica_unidades_publicas_20261105.csv";document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),1000);
+}
+document.getElementById("download").addEventListener("click",exportUnits);
+})();</script>
+</body></html>
