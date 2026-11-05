@@ -1,0 +1,144 @@
+{
+  "version": "0.1.0",
+  "corte_panel": "2026-11-05",
+  "publicacion": "Exploratorio no oficial",
+  "base_normativa": {
+    "referencia": "Ley 21.305 art. 5 y DS 28/2021 arts. 7 y 8",
+    "ciclo_reporte": "2026",
+    "inicio": "2024-11-01",
+    "fin": "2025-10-31",
+    "campos_minimos": [
+      "Edificio",
+      "Unidad",
+      "Energético",
+      "Cliente/medidor (interno)",
+      "Consumo por período",
+      "Estado de revisión"
+    ]
+  },
+  "inventario": {
+    "corte_evidencia": "2026-10-14",
+    "unidades_visibles": 8,
+    "unidades_con_reporte_segun_foto": 1,
+    "universo_municipal_validado": false,
+    "referencias_historicas_educacion": 24,
+    "escolares_rbd_historicos": 19,
+    "vtf_historicos": 5,
+    "unidades": [
+      {
+        "ref": "U-01",
+        "ubicacion": "Av. Recoleta 2774",
+        "sector": "Administración municipal",
+        "detalle": "Edificio Consistorial",
+        "estado": "Referencia visible; datos técnicos por verificar"
+      },
+      {
+        "ref": "U-02",
+        "ubicacion": "Av. Recoleta 480",
+        "sector": "Educación",
+        "detalle": "Escuela República del Paraguay",
+        "estado": "Referencia visible; identidad y consumos por validar"
+      },
+      {
+        "ref": "U-03",
+        "ubicacion": "Av. Recoleta 590",
+        "sector": "Educación",
+        "detalle": "Liceo de Adultos Jorge Alessandri",
+        "estado": "Referencia visible; dirección contrastada con 594"
+      },
+      {
+        "ref": "U-04",
+        "ubicacion": "Buenos Aires 575",
+        "sector": "Educación",
+        "detalle": "Liceo Valentín Letelier",
+        "estado": "Referencia visible; consumos por verificar"
+      },
+      {
+        "ref": "U-05",
+        "ubicacion": "Profesor Zañartu 803",
+        "sector": "Cementerio",
+        "detalle": "Unidad o sector del Cementerio General",
+        "estado": "Referencia visible; reportabilidad y cobertura a cotejar"
+      },
+      {
+        "ref": "U-06",
+        "ubicacion": "Profesor Zañartu 951",
+        "sector": "Cementerio",
+        "detalle": "Unidad o sector del Cementerio General",
+        "estado": "Referencia visible; medidor y uso por verificar"
+      },
+      {
+        "ref": "U-07",
+        "ubicacion": "Segunda de Tilo 83",
+        "sector": "Cementerio",
+        "detalle": "Unidad o sector del Cementerio General",
+        "estado": "Referencia visible; medidor y uso por verificar"
+      },
+      {
+        "ref": "U-08",
+        "ubicacion": "Unión S/N",
+        "sector": "Por confirmar",
+        "detalle": "Identidad física en levantamiento",
+        "estado": "Referencia visible; ubicación funcional pendiente"
+      }
+    ]
+  },
+  "energia": {
+    "kwh_total_2025_publicable": null,
+    "combustibles_total_publicable": null,
+    "costo_2025_publicable": null,
+    "unidades_con_serie_mensual_validada": null,
+    "nota": "No hay aquí una serie energética 2025 validada para difusión. Sin dato no significa cero.",
+    "fuentes_posibles": [
+      "Electricidad",
+      "Gas natural",
+      "Gas licuado de petróleo",
+      "Diésel",
+      "Gasolina",
+      "Otros energéticos"
+    ]
+  },
+  "agua": {
+    "naturaleza": "Módulo complementario de gestión hídrica, no reemplaza el reporte energético de la Ley 21.305",
+    "fuente": "SISS Base julio de 2026, cortes calendario; resultados técnicos agregados sin certificación contractual",
+    "cuentas_nombre": 269,
+    "cuentas_rut_municipal": 264,
+    "consumo_m3_2025_nombre": 492410.56,
+    "consumo_m3_2025_rut": 454464.56,
+    "consumo_m3_2026_ene_jul_nombre": 391019.62,
+    "categorias_originales_2025": [
+      {
+        "grupo": "Áreas verdes",
+        "m3": 229707
+      },
+      {
+        "grupo": "Educación (etiqueta SISS)",
+        "m3": 143392
+      },
+      {
+        "grupo": "Salud (etiqueta SISS)",
+        "m3": 19434
+      },
+      {
+        "grupo": "Administración (etiqueta SISS)",
+        "m3": 99877.56
+      }
+    ],
+    "alerta": "Las categorías son etiquetas de la fuente y pueden contener errores. No atribuir las cuentas a unidades sin conciliar contratos e inmuebles."
+  },
+  "trazabilidad": {
+    "fuentes_publicas": [
+      {
+        "titulo": "Ley 21.305 y reporte sector público",
+        "url": "https://sectorpublico.gestionaenergia.cl/?page_id=6818"
+      },
+      {
+        "titulo": "Biblioteca y capacitación Gestiona Energía 2026",
+        "url": "https://sectorpublico.gestionaenergia.cl/?page_id=15"
+      }
+    ],
+    "control": "GA-T-2026-0008; inventarios y consolidaciones de trabajo sin aprobación institucional",
+    "reserva": "Los números de cuenta, RUT, series de medidor, importes por instalación, facturas y documentos internos quedan fuera de este repositorio.",
+    "advertencia": "La información es exploratoria; no certifica la presentación, aprobación o cumplimiento de obligaciones legales."
+  }
+}
