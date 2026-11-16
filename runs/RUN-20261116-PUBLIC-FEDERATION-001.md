@@ -1,0 +1,2 @@
+# RUN-20261116-PUBLIC-FEDERATION-001
+Fecha/hora 2026-11-16T11:20:22-03:00 Chile. Owner germaquintana. Fuentes: rol público del repositorio, guía pública de convivencia de ejecutores. Cambio AGENTS.md, commit 7d0058a3c2a672426afd8cfd9da143759ea0119d. Verificación: creación GitHub por SHA, relectura. No se tocó contenido del dashboard, datasets, permisos ni despliegue. Resultado adopción documental; próxima acción: test real con nodo ocupado y publicación segura.
