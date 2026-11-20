@@ -4,6 +4,8 @@
 
 **[Abrir archivo HTML](index.html)** · [Datos públicos resumidos](data/indicadores_publicos.json) · [Modelo y controles de publicación](METODOLOGIA_Y_PUBLICACION.md)
 
+**[Plan de evolución al dashboard integral (D01–D04)](PLAN_EVOLUCION_DASHBOARD_MODELO_INTEGRAL_V02_2026-11-20.md)** — etapa posterior del mismo proyecto; aún sin implementación de las seis pestañas ni despliegue verificado.
+
 ## Objetivo y organización visual
 En vez de organizar el tablero solo como una auditoría de boletas, sigue los módulos de la capacitación de Gestiona Energía de **10-09-2026** y su concepto **Edificio → Unidad → Energéticos y suministros → Consumos**. Navegación:
 
